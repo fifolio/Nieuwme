@@ -1,9 +1,14 @@
-import { Button } from "@/components/ui/button"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HomePage, JournalPage } from '@/pages';
+
 
 export default function App() {
   return (
-    <div>
-      <Button>Click me</Button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path='/journal' element={<JournalPage />} />
+      </Routes>
+    </Router>
   )
 }
