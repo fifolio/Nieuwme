@@ -140,7 +140,7 @@ export default function Signup() {
       <div className="space-y-2">
         <p className="text-center text-sm">
           Already have a Journal?
-          <Button className="w-full mt-4" variant="outline">
+          <Button className="w-full mt-4" variant="outline" onClick={() => navigate("/in")}>
             Login
           </Button>
         </p>
