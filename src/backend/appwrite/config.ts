@@ -4,7 +4,6 @@ export const appwriteConfig = {
     projectId: `${import.meta.env.VITE_APPWRITE_PROJECT_ID}`,
     endpoint: `${import.meta.env.VITE_APPWRITE_ENDPOINT_URL}`,
     database: `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
-    users: `${import.meta.env.VITE_APPWRITE_COLL_USERS_ID}`,
     journals: `${import.meta.env.VITE_APPWRITE_COLL_JOURNALS_ID}`
 
 }
