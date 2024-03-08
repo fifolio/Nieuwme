@@ -46,6 +46,7 @@ export default function Signup() {
 
 
   const submitData = (data: signupTypes) => {
+    
     // get username for the pending state
     setUsername(data.username);
 
@@ -76,7 +77,7 @@ export default function Signup() {
 
   return (
     <div className="w-[300px] max-w-screen-sm px-4 py-10 space-y-6 mx-auto">
-      <div className="space-y-2 text-center mt-8">
+      <div className="space-y-2 text-center">
         <h1 className="text-xl font-bold">
           {ProjectDetails.global.name}
         </h1>
@@ -127,7 +128,7 @@ export default function Signup() {
             <ErrorAlert payload={{
               AlertTitle: AlertError_Title_Signup,
               AlertDescription: AlertError_Description_Signup,
-              style: '!mt-4 shadow-md'
+              style: '!mt-2 shadow-md'
             }} />
           </div>
 
@@ -140,7 +141,11 @@ export default function Signup() {
       <div className="space-y-2">
         <p className="text-center text-sm">
           Already have a Journal?
-          <Button className="w-full mt-4" variant="outline" onClick={() => navigate("/in")}>
+          <Button className="w-full mt-4" variant="outline" onClick={() => {
+            setAlertError_State_Signup(false)
+            navigate("/in")
+          }
+          }>
             Login
           </Button>
         </p>

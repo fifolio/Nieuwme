@@ -4,3 +4,8 @@ export type signupTypes = {
     password: string,
     confirmPassword: string,
 }
+
+export type loginTypes = {
+    email: string,
+    password: string,
+}

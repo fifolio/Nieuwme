@@ -25,7 +25,7 @@ export default async function SignupAPI(
         setIsSubmitting(false)
         setAlertError_State_Signup(false)
         console.log(res)
-        navigate('/journal') 
+        navigate('/') 
     }, (error) => {
         setIsSubmitting(false)
         setAlertError_State_Signup(true)

@@ -18,5 +18,8 @@ export const ProjectDetails = {
         // confirmPassword: '<PASSWORD>',
         // signup: 'Sign up',
         // login: 'Already have an account? Login',
+    },
+    loginPage: {
+        description: "Set, Get in, Journal — It's that simple",
     }
 }

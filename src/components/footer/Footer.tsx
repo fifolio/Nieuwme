@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="w-full py-6 border-t">
+    <footer className="w-full py-6 bottom-0 fixed">
       <div className="container flex flex-col items-center gap-4 px-4 md:px-6 text-sm">
         <div className="flex items-center gap-2 text-xs">
           <span className="opacity-50">©</span>
@@ -14,7 +14,7 @@ export default function Footer() {
             {(new Date().getFullYear())}
           </span>
         </div>
-        <nav className="flex items-center gap-4 sm:gap-4">
+        <nav className="flex items-center text-center gap-4 sm:gap-4">
           <Link className="text-xs opacity-60 hover:opacity-100 transition" to="#">
             {ProjectDetails.global.name} Terms
           </Link>

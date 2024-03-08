@@ -8,17 +8,17 @@ export default function AuthPage({ path }: { path: string }) {
         return <JournalPage />
     } else if (path === 'in') {
         return (
-            <>
+            <div>
                 <Login />
                 <Footer />
-            </>
+            </div>
         )
     } else if (path === 'up') {
         return (
-            <>
+            <div>
                 <Signup />
                 <Footer />
-            </>
+            </div>
         )
     }
 
