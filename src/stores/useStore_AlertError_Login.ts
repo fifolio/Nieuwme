@@ -1,7 +1,7 @@
 import {create} from 'zustand';
 import { Interface_useStore_AlertError_Login } from '@/interfaces/Interface_useStore_AlertError_Login';
 
-export const useStore_AlertError_Login = create<Interface_useStore_AlertError_Login>()((set) => ({
+export const useStore_AlertError_Login = create<Interface_useStore_AlertError_Login>((set) => ({
     AlertError_Sound: false,
     AlertError_State_Login: false,
     AlertError_Code_Login: 0,

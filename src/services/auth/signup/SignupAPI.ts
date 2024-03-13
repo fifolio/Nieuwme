@@ -2,7 +2,6 @@ import { ID, Account } from 'appwrite';
 import { client } from '@/backend/appwrite/config';
 import { signupTypes } from '@/types/formTypes';
 
-
 export default async function SignupAPI(
     data: signupTypes,
     setIsSubmitting: (value: boolean) => void,
@@ -10,9 +9,8 @@ export default async function SignupAPI(
     setAlertError_Code_Signup: (value: number) => void,
     setAlertError_Title_Signup: (value: string) => void,
     setAlertError_Sound: (value: boolean) => void,
-    navigate: (value: string) => void,
+    setSignupState: (value: boolean) => void,
 ) {
-
 
     const account = new Account(client);
 
@@ -20,12 +18,12 @@ export default async function SignupAPI(
         ID.unique(),
         data.email,
         data.password,
-        data.username
+        data.username,
     ).then((res) => {
+        setSignupState(true)
         setIsSubmitting(false)
         setAlertError_State_Signup(false)
         console.log(res)
-        navigate('/') 
     }, (error) => {
         setIsSubmitting(false)
         setAlertError_State_Signup(true)
@@ -36,11 +34,3 @@ export default async function SignupAPI(
     })
 
 }
-
-
-
-
-
-
-
-

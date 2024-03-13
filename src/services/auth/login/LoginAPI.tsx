@@ -10,7 +10,8 @@ export default async function LoginAPI(
     setAlertError_Code_Login: (value: number) => void,
     setAlertError_Title_Login: (value: string) => void,
     setAlertError_Sound: (value: boolean) => void,
-    navigate: (value: string) => void,
+    setCheckSessionState: (value: boolean) => void,
+    setLoginState: (value: boolean) => void,
 ) {
 
 
@@ -20,11 +21,14 @@ export default async function LoginAPI(
         data.email,
         data.password,
     ).then((res) => {
+        setLoginState(true)
         setIsSubmitting(false)
         setAlertError_State_Login(false)
+        setAlertError_Sound(false)
+        setCheckSessionState(true)
         console.log(res)
-        navigate('/') 
     }, (error) => {
+        // setLoginState(false); 
         setIsSubmitting(false)
         setAlertError_State_Login(true)
         setAlertError_Code_Login(error.code)

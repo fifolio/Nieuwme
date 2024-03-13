@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Validations
 import { useForm } from 'react-hook-form';
@@ -11,15 +11,29 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Pending from '@/components/ui/pending/Pending';
 import { ErrorAlert } from '@/components/ui/alerts';
+import { CheckCircledIcon } from "@radix-ui/react-icons"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 // Auth
 import { LoginAPI } from '@/services/auth';
 // Store
 import { useStore_AlertError_Login } from '@/stores/useStore_AlertError_Login';
+import { useStore_CheckSessionState } from '@/stores/useStore_CheckSessionState';
+import { useStore_LoginState } from '@/stores/useStore_LoginState';
+import { useStore_SignupDetails } from '@/stores/useStore_SignupDetails';
 
 
 export default function Login() {
 
   const navigate = useNavigate();
+
+  // Get the stored Signup Payload if there's any
+  const { SignupState, SignupPayload, setSignupState } = useStore_SignupDetails();
+
+  // navigate to journal if the login success
+  const { LoginState, setLoginState } = useStore_LoginState();
+ 
+  // Set the state of the session
+  const { setCheckSessionState } = useStore_CheckSessionState();
 
   // Get the stored error alert
   const {
@@ -36,7 +50,7 @@ export default function Login() {
   // Form submit pending state
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-   const { register, handleSubmit, formState: { errors } } = useForm<loginTypes>({
+  const { register, handleSubmit, formState: { errors } } = useForm<loginTypes>({
     resolver: zodResolver(loginSchema)
   });
 
@@ -53,15 +67,22 @@ export default function Login() {
       setAlertError_State_Login,
       setAlertError_Code_Login,
       setAlertError_Title_Login,
+      setCheckSessionState,
       setAlertError_Sound,
-      navigate
+      setLoginState,
     );
   };
 
+  // Go to the Journal page if the login state = true (success)
+  useEffect(() => {
+    if (LoginState) {
+      // reload page
+      window.location.reload();
+    }
+  }, [LoginState])
 
   // Alert Error Sound Effect
   const audio = new Audio('src/assets/sounds/error.mp3');
-  audio.pause()
   if (AlertError_Sound) {
     audio.play();
     setAlertError_Sound(false);
@@ -77,11 +98,24 @@ export default function Login() {
           {ProjectDetails.loginPage.description}
         </p>
       </div>
+
+      {/* Display the Signup payload */}
+      {SignupState ? (
+        <Alert className="bg-green-100 border-green-400 text-green-800">
+          <CheckCircledIcon className="h-5 w-5 mt-[-5px]" />
+          <AlertTitle className="capitalize">Dear {SignupPayload.username}</AlertTitle>
+          <AlertDescription>
+            Congratulations on your successful registration! You can now access your journal by logging in. Welcome aboard!
+          </AlertDescription>
+        </Alert>
+      ) : ''}
+
+
       <form onSubmit={handleSubmit(submitData)}>
         <div className="space-y-1">
           <div className="space-y-2">
             {/* <Label htmlFor="email">Email</Label> */}
-            <Input {...register("email")} id="email" placeholder="Email Address" required type="email" />
+            <Input {...register("email")} id="email" placeholder="Email Address" required type="email" value={SignupState ? `${SignupPayload.email}` : undefined} />
             {errors.email && <small className="text-red-600">{errors.email.message}
             </small>}
           </div>
@@ -120,6 +154,7 @@ export default function Login() {
           Don't have a Journal?
           <Button className="w-full mt-4" variant="outline" onClick={() => {
             setAlertError_State_Login(false)
+            setSignupState(false)
             navigate("/up")
           }}>
             Create a new journal now

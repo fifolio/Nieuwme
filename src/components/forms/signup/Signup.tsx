@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Validations
 import { useForm } from 'react-hook-form';
@@ -15,11 +15,15 @@ import { ErrorAlert } from '@/components/ui/alerts';
 import { SignupAPI } from '@/services/auth';
 // Store
 import { useStore_AlertError_Signup } from '@/stores/useStore_AlertError_Signup';
+import { useStore_SignupDetails } from '@/stores/useStore_SignupDetails';
 
 
 export default function Signup() {
 
   const navigate = useNavigate();
+
+  // Store the Signup Details after submit to use them in the Login page
+  const { SignupState, setSignupState, setSignupPayload } = useStore_SignupDetails();
 
   // Get the stored error alert
   const {
@@ -46,12 +50,13 @@ export default function Signup() {
 
 
   const submitData = (data: signupTypes) => {
-    
-    // get username for the pending state
+
+    // get username for the pending state shown within the submit button
     setUsername(data.username);
 
-
+    // set the Loading svg in the submit button while submitting
     setIsSubmitting(true);
+
     setAlertError_State_Signup(false);
 
     // Send data to api
@@ -62,14 +67,28 @@ export default function Signup() {
       setAlertError_Code_Signup,
       setAlertError_Title_Signup,
       setAlertError_Sound,
-      navigate
+      setSignupState
     );
+
+
+    // Store the data {username, email} in the signup store
+    setSignupPayload({
+      username: data.username,
+      email: data.email
+    });
+
   };
+
+  //navigate to the Login page if the Signup state is true (successful)
+  useEffect(() => {
+    if (SignupState) {
+      navigate('/in')
+    }
+  }, [SignupState])
 
 
   // Alert Error Sound Effect
   const audio = new Audio('src/assets/sounds/error.mp3');
-  audio.pause()
   if (AlertError_Sound) {
     audio.play();
     setAlertError_Sound(false);
