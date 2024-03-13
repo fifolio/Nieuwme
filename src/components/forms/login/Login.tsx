@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Validations
 import { useForm } from 'react-hook-form';
@@ -67,19 +67,18 @@ export default function Login() {
       setAlertError_State_Login,
       setAlertError_Code_Login,
       setAlertError_Title_Login,
-      setCheckSessionState,
       setAlertError_Sound,
       setLoginState,
     );
   };
 
   // Go to the Journal page if the login state = true (success)
-  useEffect(() => {
-    if (LoginState) {
-      // reload page
-      window.location.reload();
-    }
-  }, [LoginState])
+  if(LoginState) {
+    window.location.reload();
+    setTimeout(() => {
+      setCheckSessionState(true);
+    }, 1000)
+  }
 
   // Alert Error Sound Effect
   const audio = new Audio('src/assets/sounds/error.mp3');

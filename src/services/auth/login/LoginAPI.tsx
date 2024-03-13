@@ -10,7 +10,6 @@ export default async function LoginAPI(
     setAlertError_Code_Login: (value: number) => void,
     setAlertError_Title_Login: (value: string) => void,
     setAlertError_Sound: (value: boolean) => void,
-    setCheckSessionState: (value: boolean) => void,
     setLoginState: (value: boolean) => void,
 ) {
 
@@ -25,10 +24,9 @@ export default async function LoginAPI(
         setIsSubmitting(false)
         setAlertError_State_Login(false)
         setAlertError_Sound(false)
-        setCheckSessionState(true)
         console.log(res)
     }, (error) => {
-        // setLoginState(false); 
+        setLoginState(false); 
         setIsSubmitting(false)
         setAlertError_State_Login(true)
         setAlertError_Code_Login(error.code)
