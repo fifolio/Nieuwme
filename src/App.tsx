@@ -16,6 +16,7 @@ export default function App() {
   // Check the state of the session, valid or not
   const { CheckSessionState, setCheckSessionState } = useStore_CheckSessionState();
 
+
   async function checkTheSessionStateFunc() {
     await account.getSession('current').then((res) => {
       setCheckSessionState(true);
