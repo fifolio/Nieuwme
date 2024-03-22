@@ -1,7 +1,11 @@
-import React from 'react'
+import { PU_main } from '..'
 
 export default function Journal() {
   return (
-    <div>Journal</div>
+    <div className='flex flex-row gap-2'>
+      <PU_main />
+      <p>feeds panel</p>
+      <p>crud panel</p>
+    </div>
   )
 }

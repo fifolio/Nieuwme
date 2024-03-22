@@ -1,7 +1,7 @@
 export const ProjectDetails = {
     global: {
         version: '1.0.0',
-        name: 'Nieuwme',
+        name: 'nieume',
         description: 'xPro is an open-source project that aims to provide a platform to create, manage, and share content on the web.',
         author: 'fifolio',
         license: 'MIT',

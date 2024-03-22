@@ -44,17 +44,19 @@ export default function App() {
           <Routes>
             {CheckSessionState ? (
               <>
-                <Route index path="/" element={<JournalPage />} />
+                <Route index path="/journal" element={<JournalPage />} />
+                <Route path="/" element={<Navigate to="/journal" />} />
                 <Route path="/in" element={<Navigate to="/" />} />
                 <Route path="/up" element={<Navigate to="/" />} />
-                <Route path='/:random' element={<ErrorPage />} />
+                <Route path='*' element={<ErrorPage />} />
               </>
             ) : (
               <>
                 <Route index path='/in' element={<AuthPage path="/in" />} />
+                <Route path="/journal" element={<AuthPage path="/in" />} />
                 <Route path='/' element={<AuthPage path="/in" />} />
                 <Route path="/up" element={<AuthPage path="/up" />} />
-                <Route path='/:random' element={<ErrorPage />} />
+                <Route path='*' element={<ErrorPage />} />
               </>
             )}
           </Routes>
